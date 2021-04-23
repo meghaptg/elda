@@ -4,3 +4,10 @@ export const addEntry = (data) => {
     payload: data,
   };
 };
+
+export const changeTheme = (theme) => {
+  return {
+    type: "CHANGE_THEME",
+    payload: theme,
+  };
+};

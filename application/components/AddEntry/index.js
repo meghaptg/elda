@@ -41,21 +41,32 @@ class AddEntry extends React.Component {
         dateStamp: new Date().toLocaleString(),
       };
       this.props.addEntry(data);
-      this.props.onClose();
+      this.toast.show(`${data.title} added successfully`);
+
+      this.setState({
+        amount: 0,
+        title: "",
+        category: this.props.categories[0],
+      });
+      //   this.props.onClose();
     }
   };
   render() {
+    const color = { ...this.props.theme };
+
     return (
-      <View style={styles.container}>
+      <View
+        style={[styles.container, { backgroundColor: color.backgroundColor }]}
+      >
         <Text style={{ fontSize: 20, marginBottom: 20 }}>Add a new entry</Text>
-        <Label>title</Label>
+        <Label color={color.fontColor}>title</Label>
         <TextInput
           style={styles.textBox}
           onChangeText={(text) => this.setState({ title: text })}
           placeholder={"title"}
           value={this.state.title}
         />
-        <Label>amount</Label>
+        <Label color={color.fontColor}>amount</Label>
         <TextInput
           style={styles.textBox}
           onChangeText={(text) => this.setState({ amount: parseFloat(text) })}
@@ -63,7 +74,7 @@ class AddEntry extends React.Component {
           placeholder={"amount"}
           value={this.state.amount.toString()}
         />
-        <Label>category</Label>
+        <Label color={color.fontColor}>category</Label>
         <View style={[styles.textBox]}>
           <Picker
             style={{ height: 30 }}
@@ -81,13 +92,7 @@ class AddEntry extends React.Component {
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity
-            onPress={this.props.onClose}
-            style={[styles.btn, { backgroundColor: "lightgrey" }]}
-          >
-            <Text>Close</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.btn, { backgroundColor: "powderblue" }]}
+            style={[styles.btn, { backgroundColor: color.primaryColor }]}
             onPress={this.onSubmit}
           >
             <Text>Add</Text>
@@ -102,13 +107,12 @@ class AddEntry extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
   },
   textBox: {
     width: "80%",
-    backgroundColor: "white",
+    backgroundColor: "#fefefe",
     padding: 5,
     borderWidth: 1,
     borderRadius: 3,
@@ -125,6 +129,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     categories: state.categories,
+    theme: state.theme.theme,
   };
 }
 

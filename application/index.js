@@ -3,8 +3,12 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import { connect } from "react-redux";
 import actions from "./redux/actions";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AddEntry from "./components/AddEntry";
 import Dashboard from "./components/Dashboard";
+
+const Tab = createBottomTabNavigator();
 
 class Application extends React.Component {
   constructor(props) {
@@ -18,32 +22,12 @@ class Application extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        {/* <Text>Open up App.js to start working on your app!</Text>
-        <Text>{this.props.categories.join()}</Text>
-        <Text>
-          {this.props.data.length} - {this.state.makeEntry + "megha"}
-        </Text> */}
-        <StatusBar style="auto" />
-        <TouchableOpacity
-          onPress={() => this.setState({ makeEntry: true })}
-          style={{
-            padding: 20,
-            backgroundColor: "powderblue",
-            borderRadius: 5,
-            position: "absolute",
-            right: 10,
-            top: 60,
-          }}
-        >
-          <Text>Add new entry</Text>
-        </TouchableOpacity>
-        <Dashboard />
-
-        <Modal animationType="slide" visible={!!this.state.makeEntry}>
-          <AddEntry onClose={this.closeModal} />
-        </Modal>
-      </View>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Dashboard" component={Dashboard} />
+          <Tab.Screen name="New entry" component={AddEntry} />
+        </Tab.Navigator>
+      </NavigationContainer>
     );
   }
 }
