@@ -3,13 +3,13 @@ const initialState = [
     title: "tshirt",
     category: "clothes",
     amount: 500,
-    date: "22/04/2021, 22:24:05",
+    dateStamp: new Date(2021, 3, 2).toLocaleString(),
   },
   {
     title: "pizza",
     category: "food",
     amount: 350,
-    date: "22/04/2021, 23:14:35",
+    dateStamp: new Date(2021, 2, 1).toLocaleString(),
   },
 ];
 

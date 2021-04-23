@@ -3,6 +3,8 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import { connect } from "react-redux";
 import actions from "./redux/actions";
+import AddEntry from "./components/AddEntry";
+import Dashboard from "./components/Dashboard";
 
 class Application extends React.Component {
   constructor(props) {
@@ -11,39 +13,35 @@ class Application extends React.Component {
       makeEntry: false,
     };
   }
+  closeModal = () => {
+    this.setState({ makeEntry: false });
+  };
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        {/* <Text>Open up App.js to start working on your app!</Text>
         <Text>{this.props.categories.join()}</Text>
         <Text>
           {this.props.data.length} - {this.state.makeEntry + "megha"}
-        </Text>
-
+        </Text> */}
         <StatusBar style="auto" />
         <TouchableOpacity
           onPress={() => this.setState({ makeEntry: true })}
-          style={{ padding: 20, backgroundColor: "powderblue" }}
+          style={{
+            padding: 20,
+            backgroundColor: "powderblue",
+            borderRadius: 5,
+            position: "absolute",
+            right: 10,
+            top: 60,
+          }}
         >
-          <Text>Add entry</Text>
+          <Text>Add new entry</Text>
         </TouchableOpacity>
+        <Dashboard />
+
         <Modal animationType="slide" visible={!!this.state.makeEntry}>
-          <View
-            style={{
-              backgroundColor: "red",
-              padding: 20,
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => this.setState({ makeEntry: false })}
-              style={{ padding: 20, backgroundColor: "powderblue" }}
-            >
-              <Text>Close</Text>
-            </TouchableOpacity>
-          </View>
+          <AddEntry onClose={this.closeModal} />
         </Modal>
       </View>
     );

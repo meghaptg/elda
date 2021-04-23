@@ -1,5 +1,6 @@
-export const addEntry = (data) => (dispatch) =>
-  dispatch({
+export const addEntry = (data) => {
+  return {
     type: "ADD_ENTRY",
     payload: data,
-  });
+  };
+};
